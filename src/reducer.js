@@ -11,7 +11,12 @@ export default function reducer(state = INITIAL_STATE, action) {
         case 'NEXT':
             return next(state);
         case 'VOTE':
-            return vote(state, action.entry);
+            /* Used to ensure that 'vote' has been updated, since vote does not return
+             a completely new state (only the vote part)*/
+            return state.update(
+                'vote',
+                voteState => vote(voteState, action.entry)
+            );
     }
     return state; // When the action is not recognised
 }

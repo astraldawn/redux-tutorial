@@ -102,44 +102,32 @@ describe('application logic', () => {
     describe('vote', () => {
         it('creates a tally for the voted entry', () => {
             const state = Map({
-                vote: Map({
-                    pair: List.of("A", "B")
-                }),
-                entries: List()
+                pair: List.of("A", "B")
             });
             const nextState = vote(state, "A");
             expect(nextState).to.equal(Map({
-                vote: Map({
-                    pair: List.of("A", "B"),
-                    tally: Map({
-                        "A": 1
-                    })
-                }),
-                entries: List()
+                pair: List.of("A", "B"),
+                tally: Map({
+                    A: 1
+                })
             }));
         });
 
         it('adds to existing tally for voted entry', () => {
             const state = fromJS({
-                vote: {
-                    pair: ["A", "B"],
-                    tally: {
-                        A: 3,
-                        B: 2
-                    }
-                },
-                entries: []
+                pair: ["A", "B"],
+                tally: {
+                    A: 3,
+                    B: 2
+                }
             });
             const nextState = vote(state, "A");
             expect(nextState).to.equal(fromJS({
-                vote: {
-                    pair: ["A", "B"],
-                    tally: {
-                        A: 4,
-                        B: 2
-                    }
-                },
-                entries: []
+                pair: ["A", "B"],
+                tally: {
+                    A: 4,
+                    B: 2
+                }
             }));
         });
     });

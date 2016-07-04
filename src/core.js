@@ -32,14 +32,15 @@ export function next(state) {
     });
 }
 
-export function vote(state, entry) {
+export function vote(voteState, entry) {
     /*
-     Reaches into the map vote --> tally --> entry, creating maps along path for missing key
+     Only operates on vote, does not need information about the entire state
+     Reaches into the map tally --> entry, creating maps along path for missing key
      Then if end value is missing, update to 0
      Then apply the function on tally
      */
-    return state.updateIn(
-        ['vote', 'tally', entry],
+    return voteState.updateIn(
+        ['tally', entry],
         0,
         tally => tally + 1
     );
