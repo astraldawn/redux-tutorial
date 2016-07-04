@@ -40,6 +40,63 @@ describe('application logic', () => {
                 entries: List.of("C")
             }));
         });
+
+        it('puts winner of current vote back to entries', () => {
+            const state = fromJS({
+                "vote": {
+                    "pair": ["A", "B"],
+                    "tally": {
+                        "A": 4,
+                        "B": 2
+                    }
+                },
+                "entries": ["C", "D", "E"]
+            });
+            const nextState = next(state);
+            expect(nextState).to.equal(fromJS({
+                "vote": {
+                    "pair": ["C", "D"]
+                },
+                "entries": ["E", "A"]
+            }));
+        });
+
+        it('puts both from tied vote back into entries', () => {
+            const state = fromJS({
+                "vote": {
+                    "pair": ["A", "B"],
+                    "tally": {
+                        "A": 4,
+                        "B": 4
+                    }
+                },
+                "entries": ["C", "D", "E"]
+            });
+            const nextState = next(state);
+            expect(nextState).to.equal(fromJS({
+                "vote": {
+                    "pair": ["C", "D"]
+                },
+                "entries": ["E", "A", "B"]
+            }));
+        });
+
+        it('marks winner with 1 entry left', () => {
+            const state = fromJS({
+                "vote": {
+                    "pair": ["A", "B"],
+                    "tally": {
+                        "A": 4,
+                        "B": 2
+                    }
+                },
+                "entries": []
+            });
+            const nextState = next(state);
+            expect(nextState).to.equal(fromJS({
+                "winner": "A"
+            }));
+        });
     });
 
     describe('vote', () => {
