@@ -31,6 +31,9 @@
       "es2015"
     ]
   },
+  "jshintConfig": {
+    "esversion" : 6 // Enable support for ES6
+  },
   "dependencies": {
     "immutable": "^3.8.1"
   }
