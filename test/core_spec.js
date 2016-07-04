@@ -43,58 +43,58 @@ describe('application logic', () => {
 
         it('puts winner of current vote back to entries', () => {
             const state = fromJS({
-                "vote": {
-                    "pair": ["A", "B"],
-                    "tally": {
-                        "A": 4,
-                        "B": 2
+                vote: {
+                    pair: ["A", "B"],
+                    tally: {
+                        A: 4,
+                        B: 2
                     }
                 },
-                "entries": ["C", "D", "E"]
+                entries: ["C", "D", "E"]
             });
             const nextState = next(state);
             expect(nextState).to.equal(fromJS({
-                "vote": {
-                    "pair": ["C", "D"]
+                vote: {
+                    pair: ["C", "D"]
                 },
-                "entries": ["E", "A"]
+                entries: ["E", "A"]
             }));
         });
 
         it('puts both from tied vote back into entries', () => {
             const state = fromJS({
-                "vote": {
-                    "pair": ["A", "B"],
-                    "tally": {
-                        "A": 4,
-                        "B": 4
+                vote: {
+                    pair: ["A", "B"],
+                    tally: {
+                        A: 4,
+                        B: 4
                     }
                 },
-                "entries": ["C", "D", "E"]
+                entries: ["C", "D", "E"]
             });
             const nextState = next(state);
             expect(nextState).to.equal(fromJS({
-                "vote": {
-                    "pair": ["C", "D"]
+                vote: {
+                    pair: ["C", "D"]
                 },
-                "entries": ["E", "A", "B"]
+                entries: ["E", "A", "B"]
             }));
         });
 
         it('marks winner with 1 entry left', () => {
             const state = fromJS({
-                "vote": {
-                    "pair": ["A", "B"],
-                    "tally": {
-                        "A": 4,
-                        "B": 2
+                vote: {
+                    pair: ["A", "B"],
+                    tally: {
+                        A: 4,
+                        B: 2
                     }
                 },
-                "entries": []
+                entries: []
             });
             const nextState = next(state);
             expect(nextState).to.equal(fromJS({
-                "winner": "A"
+                winner: "A"
             }));
         });
     });
@@ -121,25 +121,25 @@ describe('application logic', () => {
 
         it('adds to existing tally for voted entry', () => {
             const state = fromJS({
-                "vote": {
-                    "pair": ["A", "B"],
-                    "tally": {
-                        "A": 3,
-                        "B": 2
+                vote: {
+                    pair: ["A", "B"],
+                    tally: {
+                        A: 3,
+                        B: 2
                     }
                 },
-                "entries": []
+                entries: []
             });
             const nextState = vote(state, "A");
             expect(nextState).to.equal(fromJS({
-                "vote": {
-                    "pair": ["A", "B"],
-                    "tally": {
-                        "A": 4,
-                        "B": 2
+                vote: {
+                    pair: ["A", "B"],
+                    tally: {
+                        A: 4,
+                        B: 2
                     }
                 },
-                "entries": []
+                entries: []
             }));
         });
     });
